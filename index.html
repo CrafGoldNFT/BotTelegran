@@ -1,83 +1,23 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>CraftGold Bot</title>
-  
-  <!-- Script obrigatório do Telegram -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TonConnect Test</title>
+  <!-- Telegram WebApp API -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <!-- TON Connect UI SDK -->
   <script src="https://unpkg.com/@tonconnect/ui"></script>
-
-  <style>
-    body, html {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    .background-container {
-      height: 100%;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2070&auto=format&fit=crop');
-      background-size: cover;
-      background-position: center;
-      color: white;
-    }
-
-    .overlay {
-      height: 100%;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.6);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-    }
-
-    #connectTon {
-      background-color: #0098EA;
-      color: white;
-      border: none;
-      padding: 16px 30px;
-      font-size: 20px;
-      font-weight: bold;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-    }
-
-    #connectTon:hover {
-      background-color: #00b4ff;
-      transform: scale(1.05);
-    }
-
-    #walletAddress {
-      font-size: 18px;
-      font-weight: bold;
-      color: #fff;
-      word-break: break-all;
-      max-width: 90%;
-    }
-  </style>
 </head>
-<body>
+<body style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;background:#111;color:#fff;gap:20px;">
 
-  <div class="background-container">
-    <div class="overlay">
-      <button id="connectTon">🚀 Conectar TON Wallet</button>
-      <div id="walletAddress"></div>
-    </div>
-  </div>
+  <h2>🚀 Teste TonConnect</h2>
+  
+  <button id="connectTon" style="padding:12px 20px;border:none;border-radius:10px;background:#0098EA;color:white;font-size:16px;cursor:pointer;">
+    Conectar TON Wallet
+  </button>
+
+  <div id="walletAddress"></div>
 
   <script>
     // Telegram WebApp API
@@ -85,23 +25,23 @@
     tg.ready();
     tg.expand();
 
-    // TON Connect UI
+    // TonConnect UI
     const tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
       manifestUrl: "https://crafgoldnft.github.io/BotTelegran/tonconnect-manifest.json"
     });
 
-    const connectBtn = document.getElementById("connectTon");
+    const btn = document.getElementById("connectTon");
     const walletDiv = document.getElementById("walletAddress");
 
-    connectBtn.addEventListener("click", async () => {
+    btn.addEventListener("click", async () => {
       try {
         const wallet = await tonConnectUI.connectWallet();
         walletDiv.innerText = "Wallet conectada: " + wallet.account.address;
 
-        // Envia o endereço de volta para o bot Python
+        // opcional: envia para o bot Python
         tg.sendData(JSON.stringify({ wallet: wallet.account.address }));
-      } catch (err) {
-        console.error("Erro ao conectar:", err);
+      } catch (e) {
+        console.error("Erro:", e);
       }
     });
   </script>
