@@ -38,12 +38,12 @@
         const wallet = await tonConnectUI.connectWallet();
         walletDiv.innerText = "Wallet conectada: " + wallet.account.address;
 
-        // opcional: envia para o bot Python
+        // opcional: envia para o bot Python dh
         tg.sendData(JSON.stringify({ wallet: wallet.account.address }));
       } catch (e) {
         console.error("Erro:", e);
       }
     });
-  </script>
+  </script> 
 </body>
 </html>
